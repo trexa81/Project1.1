@@ -1,33 +1,50 @@
 ﻿
 
 
+
+string dirNameStart = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExampleDir";
+DirectoryInfo dirInfo = new (dirNameStart);
+Console.WriteLine($"Корневой каталог: {dirInfo.Parent}");
+Console.ReadKey();
+//string json = JsonSerializer.Serialize(dirNameStart);
+//File.WriteAllText("dirName.json", json);
+
+//Console.WriteLine(dirNameStart);
+//Console.WriteLine(json);
+//Console.ReadKey();
+
+
+
+//string[] entries = Directory.GetFileSystemEntries((json), "" /*, SearchOption.AllDirectories*/);
+//for (int i = 0; i < entries.Length; i++)
+//{
+//    Console.WriteLine(entries[i]);
+//}
+
+//using Newtonsoft.Json;
+//
+
+
+/*************************************/
 /*
 Просмотр файловой структуры
 Поддержка копирование файлов, каталогов
 Поддержка удаление файлов, каталогов
 Получение информации о размерах, системных атрибутов файла, каталога
-Вывод файловой структуры должен быть постраничным
 
  */
 
 
 
-/*************************************/
-
-
 
 MainMain();
-
-
-
 
 static void MainMain()
 {
     string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
     string duplicate = new('=', 119);
     
-    string[] entries = Directory.GetFileSystemEntries(dirName, "" /*, SearchOption.AllDirectories*/);
-
+    string[] entries = Directory.GetFileSystemEntries(dirName + @"\ExampleDir", "" /*, SearchOption.AllDirectories*/);
     for (int i = 0; i < entries.Length; i++)
     {
         Console.WriteLine(entries[i]);
@@ -42,15 +59,20 @@ nn:
     n:
       
         Console.WriteLine("Выберите команду: ");
-        Console.WriteLine("Для перехода к папке введите: cd; затем её имя");
-        Console.WriteLine("Для перехода к предыдущей папке введите: app ");
-        //Console.WriteLine("3 - Вывод содержимого файла и добавление информации.");
-        //Console.WriteLine("4 - Получение данных о файле. ");
-        //Console.WriteLine("5 - Атрибуты файла. ");
+        Console.WriteLine("1.Для перехода к папке введите: cd; затем её имя");
+        Console.WriteLine("2.Для перехода к предыдущей папке введите: app ");
+        Console.WriteLine("3.Для получение данных о файле введите: inf ");
+        Console.WriteLine("4.Для удаления файла введите: del");
+        Console.WriteLine("5.Для копирования файла введите: cp");
+        Console.WriteLine("7.Для получение данных о каталоге введите: inf ");
+        Console.WriteLine("8.Для удаления каталога введите: del");
+        Console.WriteLine("9.Для копирования каталога введите: cp");
         Console.WriteLine("end - Выход");
+        Console.WriteLine(duplicate);
         Console.Write("Вы выбираете команду : ");
         var s = Console.ReadLine();
-        if (s != "cd" && s != "app" && s != "end")
+        if (s != "cd" && s != "app" && s != "inf" && s != "del" && s != "cp"
+            && s != "INF" && s != "DEL" && s != "CP" && s != "end")
         {
             Console.WriteLine("неверный ввод команды");
             goto nn;
@@ -67,21 +89,36 @@ nn:
                     Str2();
                     break;
                 }
-            //case 3:
-            //    {
-            //        Str3();
-            //        break;
-            //    }
-            //case 4:
-            //    {
-            //        Str4();
-            //        break;
-            //    }
-            //case 5:
-            //    {
-            //        Str5();
-            //        break;
-            //    }
+            case "inf":
+                {
+                    Str3();
+                    break;
+                }
+            case "del":
+                {
+                    Str4();
+                    break;
+                }
+            case "cp":
+                {
+                    Str5();
+                    break;
+                }
+            case "INF":
+                {
+                    Str6();
+                    break;
+                }
+            case "DEL":
+                {
+                    Str7();
+                    break;
+                }
+            case "CP":
+                {
+                    Str8();
+                    break;
+                }
             case "end":
                 break;
         }
@@ -94,7 +131,8 @@ nn:
     }
 }
 
-static void Str1()
+
+static void Str1() //cd
 {
     
     
@@ -108,7 +146,6 @@ static void Str1()
         Console.WriteLine(entries[i]);
     }
     Console.ReadKey();
-
     MainMain();
 
 }
@@ -128,88 +165,127 @@ static void Str2()  //  "app"
     Console.ReadKey();
     MainMain();
 }
-static void Str3()
+static void Str3()  //inf
 {
-    if ((File.Exists(@"D:myfile.txt")) == false)
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+    Console.WriteLine("Введите имя файла с его расширением");
+    string to = @"\" + Console.ReadLine();
+    string path = dirName + to;
+    FileInfo fileInf = new (path);
+    if (fileInf.Exists)
+    {
+        Console.WriteLine("Имя файла: {0}", fileInf.Name);
+        Console.WriteLine("Время создания: {0}", fileInf.CreationTime);
+        Console.WriteLine("Размер: {0} Байт", fileInf.Length);
+    }
+    else
+    {
+        Console.Write("Файла не существует! Для возврата нажмите любую кнопку... ");
+        Console.ReadKey();
+        MainMain();
+    }
+    Console.ReadKey();
+    Console.Clear();
+    MainMain();
+}
+static void Str4()  //del
+{
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+    Console.WriteLine("Введите имя файла с его расширением");
+    string to = @"\" + Console.ReadLine();
+    string path = dirName + to;
+    FileInfo fileInf = new(path);
+    if (fileInf.Exists)
+    {
+        File.Delete(path);
+    }
+    else
     {
         Console.Write("Файла не существует! Для возврата нажмите любую кнопку... ");
         Console.ReadKey();
         Console.Clear();
         MainMain();
     }
+    Console.ReadKey();
+    Console.Clear();
+    MainMain();
+}
+static void Str5()  //cp
+{
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExampleDir";
+    Console.WriteLine("Введите имя файла с его расширением");
+    string to = @"\" + Console.ReadLine();
+    string path = dirName + to;
+    Console.WriteLine("Введите имя папки в которую вы хотите скопировать файл");
+    string toto = dirName + @"\" + Console.ReadLine() + to;
+    Console.WriteLine(path + " * " + toto);
+    Console.ReadKey();
+    FileInfo fileInf = new(path);
+    if (fileInf.Exists)
+    {
+        File.Copy(path, toto, true);
+    }
     else
     {
-        string appendText = Environment.NewLine;
-        File.AppendAllText(@"D:myfile.txt", appendText);
-        string[] text = File.ReadAllLines(@"D:myfile.txt");
-        foreach (string s in text)
-        {
-            Console.WriteLine(s);
-        }
-        Console.ReadKey();
-    }
-}
-static void Str4()
-{
-    if ((File.Exists(@"D:myfile.txt")) == false)
-    {
-        Console.Write("Файла не существует! Для возврата нажмите любую кнопку... ");
+        Console.Write("Ошибка! Для возврата нажмите любую кнопку... ");
         Console.ReadKey();
         Console.Clear();
         MainMain();
+    }
+    Console.WriteLine($"Файл успешно скопирован в: {toto}");
+    Console.ReadKey();
+    Console.Clear();
+    MainMain();
+}
+static void Str6()  //INF
+{
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+    //Console.WriteLine("Введите имя каталога");
+    DirectoryInfo dirInfo = new (dirName + @"\ExampleDir");
+    Console.WriteLine($"Название каталога: {dirInfo.Name}");
+    Console.WriteLine($"Полное название каталога: {dirInfo.FullName}");
+    Console.WriteLine($"Время создания каталога: {dirInfo.CreationTime}");
+    Console.ReadKey();
+    Console.Clear();
+    MainMain();
+}
+static void Str7()  //DEL
+{
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExampleDir";
+    Console.WriteLine("Введите имя каталога");
+    string to = @"\" + Console.ReadLine();
+    string path = dirName + to;
+    Directory.Delete(path, true);
+    Console.ReadKey();
+    Console.Clear();
+    MainMain();
+}
+static void Str8()  //CP
+{
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExampleDir";
+    Console.WriteLine("Введите имя папки");
+    string to = @"\" + Console.ReadLine();
+    string path = dirName + to;
+    Console.WriteLine("Введите имя папки в которую вы хотите переместить:" + to);
+    string toto = dirName + @"\" + Console.ReadLine() + to;
+    DirectoryInfo dirInfo = new (dirName);
+    if (dirInfo.Exists && Directory.Exists(toto) == false)
+    {
+        dirInfo.MoveTo(toto);
     }
     else
     {
-        DateTime toto = File.GetCreationTime(@"D:myfile.txt");
-        Console.WriteLine("Файл создан: " + toto);
-        Console.ReadKey();
-        Console.WriteLine("Для возврата нажмите любую кнопку. ");
-        Console.ReadKey();
-        MainMain();
-    }
-}
-static void Str5()
-{
-    if (File.Exists("myfile.txt"))
-    {
-        Console.Write("Файл уже существует! Для возврата нажмите любую кнопку... ");
-        Console.ReadKey();
-        Console.Clear();
-    }
-    else if (!(File.Exists("myfile.txt")))
-    {
-        Console.WriteLine("Атрибуты файла:");
-        FileAttributes attributes = File.GetAttributes(@"D:myfile.txt");
-        if ((attributes & FileAttributes.ReadOnly) == FileAttributes.ReadOnly)
-        {
-            Console.WriteLine("Только для чтения - да");
-        }
-        else
-        {
-            Console.WriteLine("Только для чтения - нет");
-        }
-        if ((attributes & FileAttributes.Hidden) == FileAttributes.Hidden)
-        {
-            Console.WriteLine("Скрытый - да");
-        }
-        else
-        {
-            Console.WriteLine("Скрытый - нет");
-        }
-        if ((attributes & FileAttributes.System) == FileAttributes.System)
-        {
-            Console.WriteLine("Системный файл - да");
-        }
-        else
-        {
-            Console.WriteLine("Системный файл - нет");
-        }
-        Console.WriteLine("Для возврата в меню нажмите любую клавишу.");
+        Console.Write("Ошибка! Для возврата нажмите любую кнопку... ");
         Console.ReadKey();
         Console.Clear();
         MainMain();
     }
+    Console.WriteLine($"Файл успешно скопирован в: {toto}");
+    Console.ReadKey();
+    Console.Clear();
+    MainMain();
 }
+
 
 
 
