@@ -64,9 +64,9 @@ nn:
         Console.WriteLine("3.Для получение данных о файле введите: inf ");
         Console.WriteLine("4.Для удаления файла введите: del");
         Console.WriteLine("5.Для копирования файла введите: cp");
-        Console.WriteLine("7.Для получение данных о каталоге введите: inf ");
-        Console.WriteLine("8.Для удаления каталога введите: del");
-        Console.WriteLine("9.Для копирования каталога введите: cp");
+        Console.WriteLine("7.Для получение данных о каталоге введите: INF ");
+        Console.WriteLine("8.Для удаления каталога введите: DEL");
+        Console.WriteLine("9.Для перемещения каталога введите: CP");
         Console.WriteLine("end - Выход");
         Console.WriteLine(duplicate);
         Console.Write("Вы выбираете команду : ");
