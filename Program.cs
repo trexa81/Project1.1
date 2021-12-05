@@ -2,40 +2,6 @@
 
 
 
-string dirNameStart = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExampleDir";
-DirectoryInfo dirInfo = new (dirNameStart);
-Console.WriteLine($"Корневой каталог: {dirInfo.Parent}");
-Console.ReadKey();
-//string json = JsonSerializer.Serialize(dirNameStart);
-//File.WriteAllText("dirName.json", json);
-
-//Console.WriteLine(dirNameStart);
-//Console.WriteLine(json);
-//Console.ReadKey();
-
-
-
-//string[] entries = Directory.GetFileSystemEntries((json), "" /*, SearchOption.AllDirectories*/);
-//for (int i = 0; i < entries.Length; i++)
-//{
-//    Console.WriteLine(entries[i]);
-//}
-
-//using Newtonsoft.Json;
-//
-
-
-/*************************************/
-/*
-Просмотр файловой структуры
-Поддержка копирование файлов, каталогов
-Поддержка удаление файлов, каталогов
-Получение информации о размерах, системных атрибутов файла, каталога
-
- */
-
-
-
 
 MainMain();
 
