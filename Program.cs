@@ -10,7 +10,7 @@ static void MainMain()
     string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
     string duplicate = new('=', 119);
     
-    string[] entries = Directory.GetFileSystemEntries(dirName + @"\ExampleDir", "" /*, SearchOption.AllDirectories*/);
+    string[] entries = Directory.GetFileSystemEntries(dirName, "" /*, SearchOption.AllDirectories*/);
     for (int i = 0; i < entries.Length; i++)
     {
         Console.WriteLine(entries[i]);
@@ -178,7 +178,7 @@ static void Str4()  //del
 }
 static void Str5()  //cp
 {
-    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExampleDir";
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
     Console.WriteLine("Введите имя файла с его расширением");
     string to = @"\" + Console.ReadLine();
     string path = dirName + to;
@@ -207,7 +207,7 @@ static void Str6()  //INF
 {
     string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
     //Console.WriteLine("Введите имя каталога");
-    DirectoryInfo dirInfo = new (dirName + @"\ExampleDir");
+    DirectoryInfo dirInfo = new (dirName);
     Console.WriteLine($"Название каталога: {dirInfo.Name}");
     Console.WriteLine($"Полное название каталога: {dirInfo.FullName}");
     Console.WriteLine($"Время создания каталога: {dirInfo.CreationTime}");
@@ -217,7 +217,7 @@ static void Str6()  //INF
 }
 static void Str7()  //DEL
 {
-    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExampleDir";
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
     Console.WriteLine("Введите имя каталога");
     string to = @"\" + Console.ReadLine();
     string path = dirName + to;
@@ -228,7 +228,7 @@ static void Str7()  //DEL
 }
 static void Str8()  //CP
 {
-    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + @"\ExampleDir";
+    string dirName = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
     Console.WriteLine("Введите имя папки");
     string to = @"\" + Console.ReadLine();
     string path = dirName + to;
